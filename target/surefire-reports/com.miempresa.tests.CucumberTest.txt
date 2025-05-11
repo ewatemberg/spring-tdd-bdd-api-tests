@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: com.miempresa.tests.CucumberTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.348 s <<< FAILURE! -- in com.miempresa.tests.CucumberTest
+Calculadora API.Sumar dos números -- Time elapsed: 0.210 s <<< ERROR!
+java.lang.ClassCastException: class io.restassured.path.xml.XmlPath cannot be cast to class java.lang.Integer (io.restassured.path.xml.XmlPath is in unnamed module of loader 'app'; java.lang.Integer is in module java.base of loader 'bootstrap')
+	at com.miempresa.tests.CalculadoraStepDefs.el_resultado_debe_ser(CalculadoraStepDefs.java:32)
+	at ✽.el resultado debe ser 8(classpath:features/calculadora.feature:6)
+

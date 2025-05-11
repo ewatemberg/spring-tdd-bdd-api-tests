@@ -1,0 +1,3 @@
+com\miempresa\tests\CalculadoraApiTest.class
+com\miempresa\tests\CalculadoraStepDefs.class
+com\miempresa\tests\CucumberTest.class
