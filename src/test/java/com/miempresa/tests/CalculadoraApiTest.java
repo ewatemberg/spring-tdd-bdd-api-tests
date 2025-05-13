@@ -11,7 +11,7 @@ public class CalculadoraApiTest {
     @BeforeAll
     public static void setup() {
         RestAssured.baseURI = "http://localhost";
-        RestAssured.port = 8082; // o el puerto que exponga tu contenedor
+        RestAssured.port = 8080; // o el puerto que exponga tu contenedor
     }
 
     @Test
