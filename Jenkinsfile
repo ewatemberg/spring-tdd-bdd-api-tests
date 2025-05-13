@@ -18,16 +18,8 @@ pipeline {
             steps {
                 dir('spring-tdd-bdd') {
                     sh 'chmod +x mvnw'
-                    // Uso de imagen Maven solo para esta stage
-                    script {
-                        docker.image('maven:3.9.6-eclipse-temurin-17').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
-                            sh 'apt-get update && apt-get install -y docker.io'
-                            sh 'docker --version'
-                            sh 'mvn clean package -DskipTests'
-                            sh 'docker build -t $IMAGE_NAME .'
-                        }
-
-                    }
+                    sh 'mvn clean package -DskipTests'
+                    sh 'docker build -t $IMAGE_NAME .'
                 }
             }
         }
