@@ -14,13 +14,6 @@ pipeline {
             }
         }
 
-        stage('Test Docker Visibility') {
-            steps {
-                sh 'docker ps'
-                sh 'docker build -t test-image .'
-            }
-        }
-
         stage('Build Backend Image') {
             steps {
                 dir('spring-tdd-bdd') {
