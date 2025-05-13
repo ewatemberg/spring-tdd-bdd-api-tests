@@ -20,7 +20,7 @@ pipeline {
                     sh 'chmod +x mvnw'
                     // Uso de imagen Maven solo para esta stage
                     script {
-                        docker.image('maven:3.9.6-eclipse-temurin-17').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
+                        docker.image('maven:3.9.6-openjdk-17').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
                             sh 'mvn clean package -DskipTests'
                             sh 'docker build -t $IMAGE_NAME .'
                         }
