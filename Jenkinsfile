@@ -26,7 +26,7 @@ pipeline {
 
         stage('Run Backend Container') {
             steps {
-                sh 'docker run -d --rm -p 8082:8082 --name $CONTAINER_NAME $IMAGE_NAME'
+                sh 'docker run -d -p 8082:8082 --name $CONTAINER_NAME $IMAGE_NAME'
                 sh 'sleep 10'
             }
         }
