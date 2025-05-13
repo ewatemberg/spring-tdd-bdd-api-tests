@@ -7,10 +7,19 @@ pipeline {
     }
 
     stages {
+        stage('Checkout Backend Repo') {
+            steps {
+                echo 'Clonando el repo spring-tdd-bdd desde GitHub...'
+                sh 'rm -rf spring-tdd-bdd || true' // Limpia carpeta si existe
+                sh 'git clone https://github.com/ewatemberg/spring-tdd-bdd.git'
+            }
+        }
+
         stage('Build Backend Image') {
             steps {
-                dir('../spring-tdd-bdd') {
-                    sh 'mvn clean package -DskipTests'
+                dir('spring-tdd-bdd') {
+                    echo 'Compilando proyecto y creando imagen Docker...'
+                    sh './mvnw clean package -DskipTests'
                     sh 'docker build -t $IMAGE_NAME .'
                 }
             }
@@ -18,14 +27,16 @@ pipeline {
 
         stage('Run Backend Container') {
             steps {
+                echo 'Levantando container Docker de la API...'
                 sh 'docker run -d --rm -p 8080:8080 --name $CONTAINER_NAME $IMAGE_NAME'
-                // Espera que la API levante
+                echo 'Esperando a que la API levante...'
                 sh 'sleep 10'
             }
         }
 
         stage('Run API Tests (Cucumber)') {
             steps {
+                echo 'Ejecutando pruebas automatizadas con Cucumber...'
                 sh 'mvn clean test'
             }
         }
@@ -33,8 +44,9 @@ pipeline {
 
     post {
         always {
-            echo 'Cleaning up...'
+            echo 'Deteniendo el container...'
             sh 'docker stop $CONTAINER_NAME || true'
+            echo 'Publicando resultados de los tests...'
             junit '**/target/surefire-reports/*.xml'
         }
     }
