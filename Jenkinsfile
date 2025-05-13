@@ -18,6 +18,9 @@ pipeline {
         stage('Build Backend Image') {
             steps {
                 dir('spring-tdd-bdd') {
+                    echo 'Dando permisos de ejecución a mvnw'
+                    sh 'chmod +x mvnw'
+
                     echo 'Compilando proyecto y creando imagen Docker...'
                     sh './mvnw clean package -DskipTests'
                     sh 'docker build -t $IMAGE_NAME .'
